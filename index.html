@@ -917,7 +917,9 @@ footer{
 .pedido-resumen strong{color:var(--c);display:block;font-family:var(--f-title);font-size:1.1rem;margin-bottom:.3rem;}
 .pedido-resumen span{color:var(--cd)}
 /* ── TOAST ────────────────────────────────────────────── */
-.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--s);border:1px solid rgba(242,228,200,.12);color:var(--c);padding:.85rem 1.5rem;font-size:.82rem;z-index:9999;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;white-space:nowrap;}
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--s);border:1px solid rgba(242,228,200,.12);color:var(--c);padding:.85rem 1.5rem;font-size:.82rem;z-index:9999;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;white-space:nowrap;min-width:220px;text-align:center;}
+.toast.on{pointer-events:auto;}
+.toast.with-actions{white-space:normal;min-width:280px;padding:.9rem 1rem .8rem;}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 .toast.success{border-color:rgba(39,174,96,.3);color:#5ddb8a}
 .toast.error{border-color:rgba(192,57,43,.3);color:#e57467}
@@ -1014,6 +1016,33 @@ footer{
 .cart-checkout-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
 .cart-note{font-size:.72rem;color:var(--g);text-align:center;margin-top:.6rem;line-height:1.5;}
 
+/* ── MODAL VARIANTES (tamaño / proteína) ─────────────────── */
+.var-options{display:flex;flex-direction:column;gap:.5rem;margin:.5rem 0 1.2rem;}
+.var-opt{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.85rem 1rem;cursor:pointer;
+  border:1px solid rgba(242,228,200,.1);
+  background:rgba(242,228,200,.03);
+  transition:all var(--t);
+}
+.var-opt:hover,.var-opt.sel{border-color:var(--o);background:rgba(212,83,10,.1);}
+.var-opt-name{font-size:.9rem;color:var(--c);font-weight:400;}
+.var-opt-desc{font-size:.72rem;color:var(--g);margin-top:.1rem;font-weight:300;}
+.var-opt-price{font-family:var(--f-title);font-size:1.1rem;color:var(--o);flex-shrink:0;margin-left:1rem;}
+.var-opt input[type=radio]{display:none;}
+/* ── TOAST CON ACCIONES ──────────────────────────────────── */
+.toast-actions{display:flex;gap:.5rem;margin-top:.5rem;}
+.toast-act-btn{
+  flex:1;padding:.45rem;font-size:.68rem;letter-spacing:.08em;
+  text-transform:uppercase;border:none;cursor:pointer;
+  transition:background var(--t);
+}
+.toast-act-continue{background:rgba(242,228,200,.08);color:var(--cd);}
+.toast-act-continue:hover{background:rgba(242,228,200,.14);}
+.toast-act-cart{background:var(--o);color:var(--k);font-weight:500;}
+.toast-act-cart:hover{background:var(--ol);}
+.toast.with-actions{white-space:normal;min-width:260px;padding:.9rem 1rem .7rem;}
+
 /* ── KEYFRAMES ───────────────────────────────────────── */
 @keyframes fadeUp{
   from{opacity:0;transform:translateY(24px)}
@@ -1056,7 +1085,7 @@ footer{
 <body>
 
 <!-- TOAST -->
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast"><span id="toastMsg"></span><div class="toast-actions" id="toastActions" style="display:none"><button class="toast-act-btn toast-act-continue" onclick="cerrarToast()">Seguir comprando</button><button class="toast-act-btn toast-act-cart" onclick="cerrarToast();abrirCarrito()">Ver carrito</button></div></div>
 
 <!-- ── CTA FLOTANTE ──────────────────────────────────── -->
 <div class="float-cta">
@@ -1174,7 +1203,7 @@ footer{
         <button class="card-btn">Pedir este →</button>
       </div>
     </div>
-    <div class="card" onclick="openM('Papas de la casa','Cubos de papa frita con queso fundido y proteína a elegir: Pulled Pork / Curry desde $15.000 · Lechón $17.500 · Birria $19.500','Desde $15.000')">
+    <div class="card" onclick="openM('Papas de la casa','Cubos de papa frita con queso fundido y proteína a elegir: Pulled Pork / Curry desde $15.000 · Lechón $17.500 · Birria $19.500','Desde $15.000',15000)">
       <span class="card-badge">Entrada</span>
       <div class="card-img-wrap"><img src="img/IMG_1730.JPG" alt="Papas de la casa" loading="lazy"></div>
       <div class="card-price-tag"><span class="card-name-sm">Papas de la casa</span><span class="card-price-sm">Desde $15.000</span></div>
@@ -1190,7 +1219,7 @@ footer{
   <!-- BOWLS -->
   <div class="mcat" data-s="bowls">Bowls</div>
   <div class="mgrid" data-s="bowls">
-    <div class="card" onclick="openM('Bowl de Birria','Carne de res desmechada en cocción lenta en salsa de chiles · frijoles negros · arroz · maduro frito','26oz $27.000 · 32oz $36.000')">
+    <div class="card" onclick="openM('Bowl de Birria','Carne de res desmechada en cocción lenta en salsa de chiles · frijoles negros · arroz · maduro frito','26oz $27.000 · 32oz $36.000',27000)">
       <span class="card-badge">Estrella</span>
       <div class="card-img-wrap"><img src="img/bowl_birria.jpg" alt="Bowl de Birria" loading="lazy"></div>
       <div class="card-price-tag"><span class="card-name-sm">Bowl de Birria</span><span class="card-price-sm">Desde $27.000</span></div>
@@ -1201,7 +1230,7 @@ footer{
         <button class="card-btn">Pedir este →</button>
       </div>
     </div>
-    <div class="card" onclick="openM('Bowl de Lechón','Cerdo en cocción lenta con alverjas amarillas · arroz · maduro frito · ensaladilla de la casa','26oz $22.900 · 32oz $30.400')">
+    <div class="card" onclick="openM('Bowl de Lechón','Cerdo en cocción lenta con alverjas amarillas · arroz · maduro frito · ensaladilla de la casa','26oz $22.900 · 32oz $30.400',22900)">
       <div class="card-img-wrap"><img src="img/bowl_lechon.jpg" alt="Bowl de Lechón" loading="lazy"></div>
       <div class="card-price-tag"><span class="card-name-sm">Bowl de Lechón</span><span class="card-price-sm">Desde $22.900</span></div>
       <div class="card-info">
@@ -1211,7 +1240,7 @@ footer{
         <button class="card-btn">Pedir este →</button>
       </div>
     </div>
-    <div class="card" onclick="openM('Bowl Pollo al Curry','Pollo en curry de la casa · arroz · brócoli en salsa de tamarindo · cubos de papa frita','26oz $19.800 · 32oz $27.500')">
+    <div class="card" onclick="openM('Bowl Pollo al Curry','Pollo en curry de la casa · arroz · brócoli en salsa de tamarindo · cubos de papa frita','26oz $19.800 · 32oz $27.500',19800)">
       <div class="card-img-wrap"><img src="img/bowl_curry.jpg" alt="Bowl Pollo al Curry" loading="lazy"></div>
       <div class="card-price-tag"><span class="card-name-sm">Bowl Pollo al Curry</span><span class="card-price-sm">Desde $19.800</span></div>
       <div class="card-info">
@@ -1221,7 +1250,7 @@ footer{
         <button class="card-btn">Pedir este →</button>
       </div>
     </div>
-    <div class="card" onclick="openM('Bowl Pulled Pork','Cerdo desmechado en salsa BBQ · lentejas · arroz · cubos de papa frita','26oz $19.800 · 32oz $27.500')">
+    <div class="card" onclick="openM('Bowl Pulled Pork','Cerdo desmechado en salsa BBQ · lentejas · arroz · cubos de papa frita','26oz $19.800 · 32oz $27.500',19800)">
       <div class="card-img-wrap"><img src="img/bowl_pp.jpg" alt="Bowl Pulled Pork" loading="lazy"></div>
       <div class="card-price-tag"><span class="card-name-sm">Bowl Pulled Pork</span><span class="card-price-sm">Desde $19.800</span></div>
       <div class="card-info">
@@ -1231,7 +1260,7 @@ footer{
         <button class="card-btn">Pedir este →</button>
       </div>
     </div>
-    <div class="card" onclick="openM('Bowl Arroz Oriental','Arroz salteado con res · pollo · cerdo · vegetales y raíces chinas · papas fritas en cubos','26oz $22.000 · 32oz $29.500')">
+    <div class="card" onclick="openM('Bowl Arroz Oriental','Arroz salteado con res · pollo · cerdo · vegetales y raíces chinas · papas fritas en cubos','26oz $22.000 · 32oz $29.500',22000)">
       <div class="card-img-wrap"><img src="img/bowl_oriental.jpg" alt="Bowl Arroz Oriental" loading="lazy"></div>
       <div class="card-price-tag"><span class="card-name-sm">Bowl Arroz Oriental</span><span class="card-price-sm">Desde $22.000</span></div>
       <div class="card-info">
@@ -1259,7 +1288,7 @@ footer{
   <!-- SÁNDWICHES -->
   <div class="mcat" data-s="sandwiches">Sándwiches</div>
   <div class="mgrid mgrid3" data-s="sandwiches">
-    <div class="card" onclick="openM('Sándwich de Birria','Pan de la casa · birria · mayobirria · queso · papas chip · caldo de birria para dipear. ¡El más especial del menú!','$28.000')">
+    <div class="card" onclick="openM('Sándwich de Birria','Pan de la casa · birria · mayobirria · queso · papas chip · caldo de birria para dipear. ¡El más especial del menú!','$28.000',28000)">
       <span class="card-badge new">Especial</span>
       <div class="card-img-wrap"><img src="img/IMG_1816.JPG" alt="Sándwich de Birria" loading="lazy"></div>
       <div class="card-price-tag"><span class="card-name-sm">Sándwich Birria</span><span class="card-price-sm">$28.000</span></div>
@@ -1270,7 +1299,7 @@ footer{
         <button class="card-btn">Pedir este →</button>
       </div>
     </div>
-    <div class="card" onclick="openM('Sándwich de Lechón','Pan de la casa · lechón · alverja amarilla · mayo lechón · queso · papas chip','$25.000')">
+    <div class="card" onclick="openM('Sándwich de Lechón','Pan de la casa · lechón · alverja amarilla · mayo lechón · queso · papas chip','$25.000',25000)">
       <div class="card-img-wrap"><img src="img/IMG_1777.JPG" alt="Sándwich de Lechón" loading="lazy"></div>
       <div class="card-price-tag"><span class="card-name-sm">Sándwich Lechón</span><span class="card-price-sm">$25.000</span></div>
       <div class="card-info">
@@ -1280,7 +1309,7 @@ footer{
         <button class="card-btn">Pedir este →</button>
       </div>
     </div>
-    <div class="card" onclick="openM('Sándwich Pollo al Curry','Pan de la casa · pollo al curry · salsa broco-tamarindo · queso · papas chip','$25.000')">
+    <div class="card" onclick="openM('Sándwich Pollo al Curry','Pan de la casa · pollo al curry · salsa broco-tamarindo · queso · papas chip','$25.000',25000)">
       <div class="card-img-wrap"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20400%20400%27%3E%3Crect%20width%3D%27400%27%20height%3D%27400%27%20fill%3D%27%25230d0b0a%27/%3E%3Crect%20width%3D%27400%27%20height%3D%27400%27%20fill%3D%27%23d4530a%27%20opacity%3D%27.08%27/%3E%3Ctext%20x%3D%27200%27%20y%3D%27185%27%20font-family%3D%27Georgia%2Cserif%27%20font-size%3D%2748%27%20fill%3D%27%23d4530a%27%20opacity%3D%27.6%27%20text-anchor%3D%27middle%27%3E%F0%9F%8D%9C%3C/text%3E%3Ctext%20x%3D%27200%27%20y%3D%27240%27%20font-family%3D%27Arial%2Csans-serif%27%20font-size%3D%2722%27%20fill%3D%27%2523D9C9A8%27%20text-anchor%3D%27middle%27%20font-weight%3D%27300%27%3ES%C3%A1ndwich%20Curry%3C/text%3E%3C/svg%3E" alt="Sándwich Pollo al Curry" loading="lazy"></div>
       <div class="card-price-tag"><span class="card-name-sm">Sándwich Curry</span><span class="card-price-sm">$25.000</span></div>
       <div class="card-info">
@@ -1290,7 +1319,7 @@ footer{
         <button class="card-btn">Pedir este →</button>
       </div>
     </div>
-    <div class="card" onclick="openM('Sándwich Pulled Pork','Pan de la casa · pulled pork · salsa BBQ · queso · papas chip','$25.000')">
+    <div class="card" onclick="openM('Sándwich Pulled Pork','Pan de la casa · pulled pork · salsa BBQ · queso · papas chip','$25.000',25000)">
       <div class="card-img-wrap"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20400%20400%27%3E%3Crect%20width%3D%27400%27%20height%3D%27400%27%20fill%3D%27%25230d0b0a%27/%3E%3Crect%20width%3D%27400%27%20height%3D%27400%27%20fill%3D%27%23d4530a%27%20opacity%3D%27.08%27/%3E%3Ctext%20x%3D%27200%27%20y%3D%27185%27%20font-family%3D%27Georgia%2Cserif%27%20font-size%3D%2748%27%20fill%3D%27%23d4530a%27%20opacity%3D%27.6%27%20text-anchor%3D%27middle%27%3E%F0%9F%8D%9C%3C/text%3E%3Ctext%20x%3D%27200%27%20y%3D%27240%27%20font-family%3D%27Arial%2Csans-serif%27%20font-size%3D%2722%27%20fill%3D%27%2523D9C9A8%27%20text-anchor%3D%27middle%27%20font-weight%3D%27300%27%3ES%C3%A1ndwich%20Pulled%20Po%3C/text%3E%3C/svg%3E" alt="Sándwich Pulled Pork" loading="lazy"></div>
       <div class="card-price-tag"><span class="card-name-sm">Sándwich Pulled Pork</span><span class="card-price-sm">$25.000</span></div>
       <div class="card-info">
@@ -1300,7 +1329,7 @@ footer{
         <button class="card-btn">Pedir este →</button>
       </div>
     </div>
-    <div class="card" onclick="openM('Mini Sándwiches x4','4 mini sándwiches en pan de la casa: Birria · Pulled Pork · Lechón · Pollo al Curry. Perfecto para compartir.','$25.000')">
+    <div class="card" onclick="openM('Mini Sándwiches x4','4 mini sándwiches en pan de la casa: Birria · Pulled Pork · Lechón · Pollo al Curry. Perfecto para compartir.','$25.000',25000)">
       <div class="card-img-wrap"><img src="img/IMG_1687.JPG" alt="Mini Sándwiches" loading="lazy"></div>
       <div class="card-price-tag"><span class="card-name-sm">Mini Sándwiches x4</span><span class="card-price-sm">$25.000</span></div>
       <div class="card-info">
@@ -1315,7 +1344,7 @@ footer{
   <!-- SOPAS -->
   <div class="mcat" data-s="sopas">Sopas</div>
   <div class="mgrid mgrid2" data-s="sopas">
-    <div class="card" onclick="openM('Birriamen','Ramen en caldo de birria con carne desmechada · queso · totopos. La versión completa del Birriamen mini.','$25.000')">
+    <div class="card" onclick="openM('Birriamen','Ramen en caldo de birria con carne desmechada · queso · totopos. La versión completa del Birriamen mini.','$25.000',25000)">
       <span class="card-badge new">Nuevo</span>
       <div class="card-img-wrap"><img src="img/IMG_1752.JPG" alt="Birriamen" loading="lazy"></div>
       <div class="card-price-tag"><span class="card-name-sm">Birriamen</span><span class="card-price-sm">$25.000</span></div>
@@ -1333,15 +1362,15 @@ footer{
   <div class="mlist-grid" data-s="postres">
     <div class="mlist-col">
       <div class="mlist-title">Postres</div>
-      <div class="mitem" onclick="openM('Arroz con Leche','Postre casero de arroz con leche.','$12.000')">
+      <div class="mitem" onclick="openM('Arroz con Leche','Postre casero de arroz con leche.','$12.000',12000)">
         <div class="mitem-l"><span class="mitem-n">Arroz con Leche</span><span class="mitem-add">+ Agregar al pedido</span></div>
         <span class="mitem-p">$12.000</span>
       </div>
-      <div class="mitem" onclick="openM('Merengues','Merengues artesanales.','$10.000')">
+      <div class="mitem" onclick="openM('Merengues','Merengues artesanales.','$10.000',10000)">
         <div class="mitem-l"><span class="mitem-n">Merengues</span><span class="mitem-add">+ Agregar al pedido</span></div>
         <span class="mitem-p">$10.000</span>
       </div>
-      <div class="mitem" onclick="openM('Galletas','Galletas de la casa.','$10.000')">
+      <div class="mitem" onclick="openM('Galletas','Galletas de la casa.','$10.000',10000)">
         <div class="mitem-l"><span class="mitem-n">Galletas</span><span class="mitem-add">+ Agregar al pedido</span></div>
         <span class="mitem-p">$10.000</span>
       </div>
@@ -1353,38 +1382,38 @@ footer{
   <div class="mlist-grid" data-s="bebidas">
     <div class="mlist-col">
       <div class="mlist-title">Sin alcohol</div>
-      <div class="mitem" onclick="openM('Agua','Agua fría.','$6.000')">
+      <div class="mitem" onclick="openM('Agua','Agua fría.','$6.000',6000)">
         <div class="mitem-l"><span class="mitem-n">Agua</span><span class="mitem-add">+ Agregar</span></div>
         <span class="mitem-p">$6.000</span>
       </div>
-      <div class="mitem" onclick="openM('Agua con gas','Agua con gas fría.','$6.000')">
+      <div class="mitem" onclick="openM('Agua con gas','Agua con gas fría.','$6.000',6000)">
         <div class="mitem-l"><span class="mitem-n">Agua con gas</span><span class="mitem-add">+ Agregar</span></div>
         <span class="mitem-p">$6.000</span>
       </div>
-      <div class="mitem" onclick="openM('Coca Cola','Coca Cola fría.','$7.000')">
+      <div class="mitem" onclick="openM('Coca Cola','Coca Cola fría.','$7.000',7000)">
         <div class="mitem-l"><span class="mitem-n">Coca Cola</span><span class="mitem-add">+ Agregar</span></div>
         <span class="mitem-p">$7.000</span>
       </div>
-      <div class="mitem" onclick="openM('Coca Cola Zero','Coca Cola Zero fría.','$7.000')">
+      <div class="mitem" onclick="openM('Coca Cola Zero','Coca Cola Zero fría.','$7.000',7000)">
         <div class="mitem-l"><span class="mitem-n">Coca Cola Zero</span><span class="mitem-add">+ Agregar</span></div>
         <span class="mitem-p">$7.000</span>
       </div>
-      <div class="mitem" onclick="openM('Limonada con jengibre','Limonada natural con jengibre fresco.','$7.500')">
+      <div class="mitem" onclick="openM('Limonada con jengibre','Limonada natural con jengibre fresco.','$7.500',7500)">
         <div class="mitem-l"><span class="mitem-n">Limonada con jengibre</span><span class="mitem-add">+ Agregar</span></div>
         <span class="mitem-p">$7.500</span>
       </div>
     </div>
     <div class="mlist-col">
       <div class="mlist-title">Cervezas</div>
-      <div class="mitem" onclick="openM('Club Colombia Dorada','Cerveza Club Colombia Dorada.','$8.500')">
+      <div class="mitem" onclick="openM('Club Colombia Dorada','Cerveza Club Colombia Dorada.','$8.500',8500)">
         <div class="mitem-l"><span class="mitem-n">Club Colombia Dorada</span><span class="mitem-add">+ Agregar</span></div>
         <span class="mitem-p">$8.500</span>
       </div>
-      <div class="mitem" onclick="openM('Coronita','Cerveza Coronita fría.','$8.500')">
+      <div class="mitem" onclick="openM('Coronita','Cerveza Coronita fría.','$8.500',8500)">
         <div class="mitem-l"><span class="mitem-n">Coronita</span><span class="mitem-add">+ Agregar</span></div>
         <span class="mitem-p">$8.500</span>
       </div>
-      <div class="mitem" onclick="openM('Stella Artois','Cerveza Stella Artois fría.','$10.000')">
+      <div class="mitem" onclick="openM('Stella Artois','Cerveza Stella Artois fría.','$10.000',10000)">
         <div class="mitem-l"><span class="mitem-n">Stella Artois</span><span class="mitem-add">+ Agregar</span></div>
         <span class="mitem-p">$10.000</span>
       </div>
@@ -1440,7 +1469,7 @@ footer{
       </div>
       <div class="bowie-cta-wrap">
         <a href="https://wa.me/573132776821?text=Hola%2C+quiero+hacer+un+pedido" class="bowie-cta" target="_blank">Chatear con Bowie</a>
-        <button class="bowie-cta-sec" onclick="abrirCheckout()">Formulario web</button>
+        <button class="bowie-cta-sec" onclick="abrirCarrito()">Ver carrito 🛒</button>
       </div>
     </div>
   </div>
@@ -1482,16 +1511,16 @@ footer{
 <section class="order-sec" id="pedir">
   <div>
     <p class="eyebrow">Haz tu pedido</p>
-    <h2 class="sec-title">Dos formas<br>de pedir</h2>
-    <p class="order-desc">Por WhatsApp con Bowie o con el formulario. Bowie conoce el menú completo, toma tu pedido en segundos y lo lleva directo a la cocina — atención real, no automatización genérica.</p>
+    <h2 class="sec-title">Elige cómo<br>quieres pedir</h2>
+    <p class="order-desc">Agrega lo que quieras al carrito y confirma por WhatsApp con Bowie — atención real en segundos, sin formularios ni esperas.</p>
     <div class="chnls">
-      <a href="https://wa.me/573132776821?text=Hola%2C+quiero+hacer+un+pedido+en+La+Bowler%C3%ADa" class="chnl chnl-wa" target="_blank">
+      <a href="https://wa.me/573132776821?text=Hola%2C+quiero+hacer+un+pedido+en+La+Bowler%C3%ADa" class="chnl chnl-wa" target="_blank" onclick="trackWA&&trackWA('seccion_pedir')">
         <div class="chnl-i">💬</div>
-        <div class="chnl-t"><strong>Pedir por WhatsApp con Bowie</strong><small>Atención inmediata · lun–dom 11:15 a.m.–7 p.m.</small></div>
+        <div class="chnl-t"><strong>WhatsApp con Bowie</strong><small>Atención inmediata · lun–dom 11:15–7 p.m.</small></div>
       </a>
-      <button class="chnl chnl-form" onclick="abrirCheckout()">
-        <div class="chnl-i">📋</div>
-        <div class="chnl-t"><strong>Formulario en línea</strong><small>Completa tu pedido y confirmamos en minutos</small></div>
+      <button class="chnl chnl-form" onclick="abrirCarrito()">
+        <div class="chnl-i">🛒</div>
+        <div class="chnl-t"><strong>Ver mi carrito</strong><small>Agrega productos desde el menú y confirma aquí</small></div>
       </button>
     </div>
     <div class="info-box">
@@ -1500,65 +1529,29 @@ footer{
       <strong>Pagos:</strong> Efectivo · Nequi · Daviplata · Llaves Bre-B
     </div>
   </div>
-  <div class="oform">
-    <h3>Hacer un pedido</h3>
-    <div class="fg2">
-      <div class="fg"><label>Nombre</label><input type="text" placeholder="Juan Carlos" id="fn"></div>
-      <div class="fg"><label>WhatsApp</label><input type="tel" placeholder="300 000 0000" id="ft"></div>
+  <div style="display:flex;flex-direction:column;gap:1.5rem;">
+    <div style="background:var(--s);border:1px solid rgba(242,228,200,.08);padding:2.5rem;position:relative;">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--o),var(--ol),var(--o));"></div>
+      <h3 style="font-family:var(--f-title);font-size:2rem;color:var(--c);margin-bottom:1rem;">¿Cómo funciona?</h3>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div style="display:flex;gap:1rem;align-items:flex-start;">
+          <div style="width:32px;height:32px;background:var(--o);color:var(--k);font-family:var(--f-title);font-size:1.1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">1</div>
+          <div><strong style="display:block;font-size:.88rem;color:var(--c);margin-bottom:.2rem;">Elige del menú</strong><span style="font-size:.8rem;color:var(--g);font-weight:300;">Haz clic en cualquier plato — se agrega directo al carrito.</span></div>
+        </div>
+        <div style="display:flex;gap:1rem;align-items:flex-start;">
+          <div style="width:32px;height:32px;background:var(--o);color:var(--k);font-family:var(--f-title);font-size:1.1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">2</div>
+          <div><strong style="display:block;font-size:.88rem;color:var(--c);margin-bottom:.2rem;">Revisa tu carrito</strong><span style="font-size:.8rem;color:var(--g);font-weight:300;">Ajusta cantidades, agrega más productos o elimina lo que no quieres.</span></div>
+        </div>
+        <div style="display:flex;gap:1rem;align-items:flex-start;">
+          <div style="width:32px;height:32px;background:var(--o);color:var(--k);font-family:var(--f-title);font-size:1.1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">3</div>
+          <div><strong style="display:block;font-size:.88rem;color:var(--c);margin-bottom:.2rem;">Confirma con Bowie</strong><span style="font-size:.8rem;color:var(--g);font-weight:300;">Tu pedido va directo a WhatsApp. Bowie lo confirma en segundos.</span></div>
+        </div>
+      </div>
     </div>
-    <div class="fg"><label>Dirección de entrega</label><input type="text" placeholder="Calle 127 B bis #52a-69..." id="fd"></div>
-    <div class="fg">
-      <label>¿Qué quieres pedir?</label>
-      <select id="fp">
-        <option value="">Selecciona un plato</option>
-        <optgroup label="── Entradas ──">
-          <option>Birriamen Mini — $15.000</option>
-          <option>Papas con Pulled Pork / Curry — $15.000</option>
-          <option>Papas con Lechón — $17.500</option>
-          <option>Papas con Birria — $19.500</option>
-        </optgroup>
-        <optgroup label="── Bowls ──">
-          <option>Bowl de Birria 26oz — $27.000</option>
-          <option>Bowl de Birria 32oz — $36.000</option>
-          <option>Bowl de Lechón 26oz — $22.900</option>
-          <option>Bowl de Lechón 32oz — $30.400</option>
-          <option>Bowl Pollo al Curry 26oz — $19.800</option>
-          <option>Bowl Pollo al Curry 32oz — $27.500</option>
-          <option>Bowl Pulled Pork 26oz — $19.800</option>
-          <option>Bowl Pulled Pork 32oz — $27.500</option>
-          <option>Bowl Arroz Oriental 26oz — $22.000</option>
-          <option>Bowl Arroz Oriental 32oz — $29.500</option>
-          <option>Arma tu Bowl 26oz — desde $15.000</option>
-        </optgroup>
-        <optgroup label="── Sándwiches ──">
-          <option>Sándwich de Birria — $28.000</option>
-          <option>Sándwich de Lechón — $25.000</option>
-          <option>Sándwich Pollo al Curry — $25.000</option>
-          <option>Sándwich Pulled Pork — $25.000</option>
-          <option>Mini Sándwiches x4 — $25.000</option>
-        </optgroup>
-        <optgroup label="── Sopas ──">
-          <option>Birriamen — $25.000</option>
-        </optgroup>
-        <optgroup label="── Postres ──">
-          <option>Arroz con Leche — $12.000</option>
-          <option>Merengues — $10.000</option>
-          <option>Galletas — $10.000</option>
-        </optgroup>
-        <optgroup label="── Bebidas ──">
-          <option>Agua — $6.000</option>
-          <option>Agua con gas — $6.000</option>
-          <option>Coca Cola — $7.000</option>
-          <option>Coca Cola Zero — $7.000</option>
-          <option>Limonada con jengibre — $7.500</option>
-          <option>Club Colombia Dorada — $8.500</option>
-          <option>Coronita — $8.500</option>
-          <option>Stella Artois — $10.000</option>
-        </optgroup>
-      </select>
-    </div>
-    <div class="fg"><label>Notas adicionales</label><textarea placeholder="Sin picante, sin cebolla, instrucciones especiales..." id="fo"></textarea></div>
-    <button class="fsub" onclick="enviarFormulario()">Confirmar pedido →</button>
+    <a href="#menu" class="btn-main" style="justify-content:center;text-decoration:none;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
+      Ver el menú completo
+    </a>
   </div>
 </section>
 
@@ -1663,6 +1656,19 @@ footer{
   </div>
 </div>
 
+
+<!-- ── MODAL VARIANTES (tamaño / proteína) ───────────────── -->
+<div class="moverlay" id="varModal" onclick="if(event.target===this)document.getElementById('varModal').classList.remove('on')">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-top"></div>
+    <button class="mclose" onclick="document.getElementById('varModal').classList.remove('on')">×</button>
+    <h3 id="varModalTitulo"></h3>
+    <p class="modal-dish" id="varModalDesc"></p>
+    <div class="var-options" id="varOpciones"></div>
+    <button class="fsub" id="varConfirmar" onclick="confirmarVariante()">Agregar al carrito →</button>
+  </div>
+</div>
+
 <!-- ── MODAL PEDIDO ───────────────────────────────────── -->
 <div class="moverlay" id="om" onclick="if(event.target===this)this.classList.remove('on')">
   <div class="modal">
@@ -1741,11 +1747,7 @@ footer{
       <span>Total estimado</span>
       <strong id="armaTotal">$15.000</strong>
     </div>
-    <div class="fg2">
-      <div class="fg"><label>Nombre</label><input type="text" placeholder="Juan Carlos" id="a-nombre"></div>
-      <div class="fg"><label>Dirección</label><input type="text" placeholder="Calle 127..." id="a-dir"></div>
-    </div>
-    <button class="fsub" onclick="enviarArma()">Confirmar por WhatsApp →</button>
+    <button class="fsub" onclick="enviarArma()">Agregar al carrito →</button>
   </div>
 </div>
 
@@ -2091,111 +2093,198 @@ function filt(cat,btn){
 }
 
 // ══════════════════════════════════════════════════════════
+// TOAST CON ACCIONES
+// ══════════════════════════════════════════════════════════
+let _toastTimer = null;
+function showToast(nombre) {
+  if(_toastTimer) clearTimeout(_toastTimer);
+  const t = document.getElementById('toast');
+  const msg = document.getElementById('toastMsg');
+  const actions = document.getElementById('toastActions');
+  if(!t) return;
+  msg.textContent = nombre + ' agregado 🍜';
+  actions.style.display = 'flex';
+  t.className = 'toast on success with-actions';
+  _toastTimer = setTimeout(()=>t.classList.remove('on'), 5000);
+}
+function cerrarToast() {
+  const t = document.getElementById('toast');
+  if(t) t.classList.remove('on');
+  if(_toastTimer) clearTimeout(_toastTimer);
+}
+
+// ══════════════════════════════════════════════════════════
 // CARRITO
 // ══════════════════════════════════════════════════════════
 const CART = { items:[], _next:1 };
 
 function cartAdd(nombre, precio, desc) {
-  const existing = CART.items.find(i => i.nombre === nombre && i.desc === (desc||''));
+  const key = nombre + '|' + (desc||'');
+  const existing = CART.items.find(i => (i.nombre+'|'+(i.desc||'')) === key);
   if (existing) { existing.qty++; }
-  else { CART.items.push({ id: CART._next++, nombre, precio: Number(precio)||0, desc: desc||'', qty: 1 }); }
+  else { CART.items.push({id:CART._next++, nombre, precio:Number(precio)||0, desc:desc||'', qty:1}); }
   cartRender();
-  abrirCarrito();
-  const t = document.getElementById('toast');
-  t.textContent = nombre + ' agregado 🍜';
-  t.className = 'toast on success';
-  setTimeout(()=>t.classList.remove('on'),2000);
+  showToast(nombre);
 }
 
 function cartQty(id, delta) {
   const idx = CART.items.findIndex(i=>i.id===id);
-  if (idx<0) return;
+  if(idx<0) return;
   CART.items[idx].qty += delta;
-  if (CART.items[idx].qty <= 0) CART.items.splice(idx,1);
+  if(CART.items[idx].qty<=0) CART.items.splice(idx,1);
   cartRender();
 }
 
-function cartTotal() { return CART.items.reduce((s,i)=>s+(i.precio*i.qty),0); }
-function cartCount() { return CART.items.reduce((s,i)=>s+i.qty,0); }
+function cartTotal(){ return CART.items.reduce((s,i)=>s+(i.precio*i.qty),0); }
+function cartCount(){ return CART.items.reduce((s,i)=>s+i.qty,0); }
 
 function cartRender() {
   const count = cartCount();
   const el = document.getElementById('cartCount');
-  if (el) { el.textContent = count; el.classList.toggle('hidden', count===0); }
+  if(el){ el.textContent=count; el.classList.toggle('hidden',count===0); }
   const itemsEl = document.getElementById('cartItems');
   const emptyEl = document.getElementById('cartEmpty');
   const totalEl = document.getElementById('cartTotal');
-  const btnEl = document.getElementById('cartCheckoutBtn');
-  if (!itemsEl) return;
-  if (CART.items.length === 0) {
-    if (emptyEl) emptyEl.style.display = '';
+  const btnEl   = document.getElementById('cartCheckoutBtn');
+  if(!itemsEl) return;
+  if(CART.items.length===0){
+    if(emptyEl) emptyEl.style.display='';
     itemsEl.querySelectorAll('.cart-item').forEach(e=>e.remove());
-    if (totalEl) totalEl.textContent = '$0';
-    if (btnEl) btnEl.disabled = true;
+    if(totalEl) totalEl.textContent='$0';
+    if(btnEl) btnEl.disabled=true;
     return;
   }
-  if (emptyEl) emptyEl.style.display = 'none';
-  if (btnEl) btnEl.disabled = false;
-  // Limpiar y re-renderizar
+  if(emptyEl) emptyEl.style.display='none';
+  if(btnEl) btnEl.disabled=false;
   itemsEl.querySelectorAll('.cart-item').forEach(e=>e.remove());
-  CART.items.forEach(item => {
-    const div = document.createElement('div');
-    div.className = 'cart-item';
-    div.innerHTML =
-      '<div class="cart-item-info">' +
-        '<div class="cart-item-name">' + san(item.nombre) + '</div>' +
-        (item.desc ? '<div class="cart-item-desc">' + san(item.desc) + '</div>' : '') +
-        '<div class="cart-item-price">' + fmtCOP(item.precio * item.qty) + '</div>' +
-      '</div>' +
-      '<div class="cart-item-qty">' +
-        '<button class="qty-btn" onclick="cartQty(' + item.id + ',-1)" aria-label="Quitar uno">−</button>' +
-        '<span class="qty-num">' + item.qty + '</span>' +
-        '<button class="qty-btn" onclick="cartQty(' + item.id + ',1)" aria-label="Agregar uno">+</button>' +
+  CART.items.forEach(item=>{
+    const div=document.createElement('div');
+    div.className='cart-item';
+    div.innerHTML=
+      '<div class="cart-item-info">'+
+        '<div class="cart-item-name">'+san(item.nombre)+'</div>'+
+        (item.desc?'<div class="cart-item-desc">'+san(item.desc)+'</div>':'')+
+        '<div class="cart-item-price">'+fmtCOP(item.precio*item.qty)+'</div>'+
+      '</div>'+
+      '<div class="cart-item-qty">'+
+        '<button class="qty-btn" onclick="cartQty('+item.id+',-1)" aria-label="Quitar">−</button>'+
+        '<span class="qty-num">'+item.qty+'</span>'+
+        '<button class="qty-btn" onclick="cartQty('+item.id+',1)" aria-label="Agregar">+</button>'+
       '</div>';
     itemsEl.appendChild(div);
   });
-  if (totalEl) totalEl.textContent = fmtCOP(cartTotal());
+  if(totalEl) totalEl.textContent=fmtCOP(cartTotal());
 }
 
-function abrirCarrito() {
+function abrirCarrito(){
+  cerrarToast();
   document.getElementById('cartPanel').classList.add('open');
   document.getElementById('cartOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  document.body.style.overflow='hidden';
 }
-function cerrarCarrito() {
+function cerrarCarrito(){
   document.getElementById('cartPanel').classList.remove('open');
   document.getElementById('cartOverlay').classList.remove('open');
-  document.body.style.overflow = '';
+  document.body.style.overflow='';
 }
-function checkoutCarrito() {
-  if (CART.items.length === 0) return;
-  // Construir resumen del pedido
-  const resumen = CART.items.map(i=>i.nombre+(i.qty>1?' x'+i.qty:'')+(i.desc?' ('+i.desc+')':'')).join(', ');
-  const total = fmtCOP(cartTotal());
-  window._pedidoPendiente = { descripcion: resumen + ' — Total: ' + total, dir:'', notas:'' };
-  const resNombre = document.getElementById('authPedidoNombre');
-  const resPrecio = document.getElementById('authPedidoPrecio');
-  if (resNombre) resNombre.textContent = CART.items.length === 1 ? CART.items[0].nombre : CART.items.length + ' productos';
-  if (resPrecio) resPrecio.textContent = 'Total: ' + total;
+function checkoutCarrito(){
+  if(CART.items.length===0) return;
+  const resumen=CART.items.map(i=>i.nombre+(i.qty>1?' x'+i.qty:'')+(i.desc?' ('+i.desc+')':'')).join(', ');
+  const total=fmtCOP(cartTotal());
+  window._pedidoPendiente={descripcion:resumen+' — Total: '+total, dir:'', notas:''};
+  const rn=document.getElementById('authPedidoNombre');
+  const rp=document.getElementById('authPedidoPrecio');
+  if(rn) rn.textContent=CART.items.length===1?CART.items[0].nombre:CART.items.length+' productos';
+  if(rp) rp.textContent='Total: '+total;
   cerrarCarrito();
-  authTab('google', document.querySelector('#authTabs .auth-tab'));
+  authTab('google',document.querySelector('#authTabs .auth-tab'));
   document.getElementById('authModal').classList.add('on');
   trackWA('checkout_carrito');
 }
 
-// ── MODIFICAR openM PARA AGREGAR AL CARRITO ───────────────
+// ══════════════════════════════════════════════════════════
+// MODAL DE VARIANTES (tamaño / proteína)
+// ══════════════════════════════════════════════════════════
+let _varOpciones = [];
+let _varSelIdx = 0;
+
+function openVariantes(titulo, desc, opciones) {
+  // opciones: [{label, subDesc, precio}]
+  _varOpciones = opciones;
+  _varSelIdx = 0;
+  document.getElementById('varModalTitulo').textContent = titulo;
+  document.getElementById('varModalDesc').textContent = desc || '';
+  const cont = document.getElementById('varOpciones');
+  cont.innerHTML = '';
+  opciones.forEach((op, idx) => {
+    const div = document.createElement('div');
+    div.className = 'var-opt' + (idx===0?' sel':'');
+    div.onclick = () => {
+      _varSelIdx = idx;
+      cont.querySelectorAll('.var-opt').forEach((el,i)=>el.classList.toggle('sel',i===idx));
+    };
+    div.innerHTML =
+      '<div>'+
+        '<div class="var-opt-name">'+san(op.label)+'</div>'+
+        (op.subDesc?'<div class="var-opt-desc">'+san(op.subDesc)+'</div>':'')+
+      '</div>'+
+      '<div class="var-opt-price">'+fmtCOP(op.precio)+'</div>';
+    cont.appendChild(div);
+  });
+  document.getElementById('varModal').classList.add('on');
+}
+
+function confirmarVariante() {
+  const op = _varOpciones[_varSelIdx];
+  if(!op) return;
+  const titulo = document.getElementById('varModalTitulo').textContent;
+  cartAdd(titulo+' — '+op.label, op.precio, op.subDesc||'');
+  document.getElementById('varModal').classList.remove('on');
+}
+
+// ── openM — router principal ──────────────────────────────
 function openM(nombre, desc, precioTexto, precioNum) {
-  // Si tiene precio numérico, agregar directo al carrito
+  // Bowls con 2 tamaños
+  const bowlsTamanio = {
+    'Bowl de Birria':       [{label:'26oz',subDesc:'',precio:27000},{label:'32oz',subDesc:'Tamaño grande',precio:36000}],
+    'Bowl de Lechón':       [{label:'26oz',subDesc:'',precio:22900},{label:'32oz',subDesc:'Tamaño grande',precio:30400}],
+    'Bowl Pollo al Curry':  [{label:'26oz',subDesc:'',precio:19800},{label:'32oz',subDesc:'Tamaño grande',precio:27500}],
+    'Bowl Pulled Pork':     [{label:'26oz',subDesc:'',precio:19800},{label:'32oz',subDesc:'Tamaño grande',precio:27500}],
+    'Bowl Arroz Oriental':  [{label:'26oz',subDesc:'',precio:22000},{label:'32oz',subDesc:'Tamaño grande',precio:29500}],
+  };
+  // Papas con variantes de proteína
+  if (nombre === 'Papas de la casa') {
+    openVariantes('Papas de la casa', 'Cubos de papa frita con queso fundido — elige tu proteína', [
+      {label:'Con Pulled Pork',  subDesc:'Cerdo desmechado en BBQ', precio:15000},
+      {label:'Con Pollo al Curry', subDesc:'Pollo en curry de la casa', precio:15000},
+      {label:'Con Lechón',       subDesc:'Cerdo en cocción lenta',   precio:17500},
+      {label:'Con Birria',       subDesc:'Res desmechada en chiles', precio:19500},
+    ]);
+    return;
+  }
+  // Bowls con tamaño
+  if (bowlsTamanio[nombre]) {
+    openVariantes(nombre, desc, bowlsTamanio[nombre]);
+    return;
+  }
+  // Resto: agregar directo al carrito
   if (precioNum && precioNum > 0) {
     cartAdd(nombre, precioNum, desc);
   } else {
-    // Fallback: modal simple para items con precio variable
+    // Fallback modal simple
     document.getElementById('mPlato').textContent = nombre + ' · ' + precioTexto;
     document.getElementById('om').classList.add('on');
   }
 }
 
-// ── MODAL SIMPLE (fallback) ───────────────────────────────
+// ── abrirCheckout (links externos sin carrito) ────────────
+window._pedidoPendiente = null;
+function abrirCheckout(platoNombre,platoDesc,plat,precio){
+  if(platoNombre && precio){ cartAdd(platoNombre,precio,platoDesc||''); }
+  else { abrirCarrito(); }
+}
+
+// ── Modal simple fallback ─────────────────────────────────
 function enviarM(){
   const n=san(document.getElementById('mn').value.trim());
   if(!n){alert('Por favor ingresa tu nombre.');return;}
@@ -2211,64 +2300,45 @@ function enviarM(){
   window.open('https://wa.me/573132776821?text='+m,'_blank');
   document.getElementById('om').classList.remove('on');
 }
+function enviarFormulario(){abrirCarrito();}
+function enviar(){abrirCarrito();}
 
-// ── FORMULARIO SECCIÓN PEDIR ──────────────────────────────
-function enviarFormulario(){
-  const n=san(document.getElementById('fn').value.trim());
-  const p=san(document.getElementById('fp').value);
-  if(!n||!p){alert('Por favor ingresa tu nombre y selecciona un plato.');return;}
-  const d=san(document.getElementById('fd').value.trim());
-  const o=san(document.getElementById('fo').value.trim());
-  window._pedidoPendiente={descripcion:p,nombre:p,dir:d,notas:o};
-  const resNombre=document.getElementById('authPedidoNombre');
-  const resPrecio=document.getElementById('authPedidoPrecio');
-  if(resNombre)resNombre.textContent=p;
-  if(resPrecio)resPrecio.textContent='';
-  authTab('google',document.querySelector('#authTabs .auth-tab'));
-  document.getElementById('authModal').classList.add('on');
-}
-function enviar(){enviarFormulario();}
-
-// ── ABRIRCHECKOUT (links externos que no usan carrito) ─────
-window._pedidoPendiente = null;
-function abrirCheckout(platoNombre,platoDesc,plat,precio){
-  if(platoNombre && precio){
-    cartAdd(platoNombre, precio, platoDesc||'');
-  } else {
-    window._pedidoPendiente={descripcion:'',nombre:'',dir:'',notas:''};
-    const rn=document.getElementById('authPedidoNombre');
-    const rp=document.getElementById('authPedidoPrecio');
-    if(rn)rn.textContent='Pedido general';
-    if(rp)rp.textContent='';
-    authTab('google',document.querySelector('#authTabs .auth-tab'));
-    document.getElementById('authModal').classList.add('on');
-  }
-}
-
-// ── ARMA TU BOWL ──────────────────────────────────────────
+// ══════════════════════════════════════════════════════════
+// ARMA TU BOWL
+// ══════════════════════════════════════════════════════════
 function openArma(){document.getElementById('armaModal').classList.add('on');calcTotal();}
 function gv(id){const s=document.getElementById(id);const p=(s.value||'').split('|');return{name:p[0]||'',price:parseInt(p[1]||0)};}
-function calcTotal(){const t=15000+gv('a-base').price+gv('a-prot').price+gv('a-ac1').price+gv('a-ac2').price+gv('a-salsa').price;document.getElementById('armaTotal').textContent=fmtCOP(t);}
-['a-base','a-prot','a-ac1','a-ac2','a-salsa'].forEach(id=>{document.getElementById(id).addEventListener('change',calcTotal);});
+function calcTotal(){
+  const t=15000+gv('a-base').price+gv('a-prot').price+gv('a-ac1').price+gv('a-ac2').price+gv('a-salsa').price;
+  document.getElementById('armaTotal').textContent=fmtCOP(t);
+}
+['a-base','a-prot','a-ac1','a-ac2','a-salsa'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el) el.addEventListener('change',calcTotal);
+});
 function enviarArma(){
-  const n=san(document.getElementById('a-nombre').value.trim());
-  if(!n){alert('Por favor ingresa tu nombre.');return;}
   const b=gv('a-base'),p=gv('a-prot'),a1=gv('a-ac1'),a2=gv('a-ac2'),s=gv('a-salsa');
   const t=15000+b.price+p.price+a1.price+a2.price+s.price;
   const desc='Base: '+b.name+' · Proteína: '+p.name+' · '+a1.name+' · '+a2.name+' · Salsa: '+s.name;
-  // Agregar al carrito en vez de ir directo a WhatsApp
-  cartAdd('Arma tu Bowl 26oz', t, desc);
-  document.getElementById('a-nombre').value='';
-  document.getElementById('a-dir').value='';
+  // Cerrar modal arma tu bowl ANTES de agregar (evita que toast quede debajo)
   document.getElementById('armaModal').classList.remove('on');
+  // Limpiar campos
+  const nb=document.getElementById('a-nombre');
+  const db=document.getElementById('a-dir');
+  if(nb) nb.value='';
+  if(db) db.value='';
+  // Agregar al carrito
+  cartAdd('Arma tu Bowl 26oz', t, desc);
 }
 
-// ── AUTH MODAL TABS ───────────────────────────────────────
+// ══════════════════════════════════════════════════════════
+// AUTH MODAL TABS
+// ══════════════════════════════════════════════════════════
 function authTab(panel,btn){
   ['Google','Email','Guest'].forEach(p=>{const el=document.getElementById('panel'+p);if(el)el.classList.remove('on');});
   document.querySelectorAll('#authTabs .auth-tab').forEach(b=>b.classList.remove('on'));
-  const pname='panel'+panel.charAt(0).toUpperCase()+panel.slice(1);
-  const el=document.getElementById(pname);if(el)el.classList.add('on');
+  const el=document.getElementById('panel'+panel.charAt(0).toUpperCase()+panel.slice(1));
+  if(el)el.classList.add('on');
   if(btn)btn.classList.add('on');
   ['errGoogle','errLogin','errReg','errGuest'].forEach(id=>{const e=document.getElementById(id);if(e){e.textContent='';e.classList.remove('on');}});
   ['loadGoogle','loadLogin','loadReg','loadGuest'].forEach(id=>{const e=document.getElementById(id);if(e)e.classList.remove('on');});
@@ -2286,10 +2356,19 @@ function cerrarAuthModal(){
 }
 
 // ── SCROLL REVEAL ─────────────────────────────────────────
-const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}});},{threshold:0.06,rootMargin:'0px 0px -40px 0px'});
-document.querySelectorAll('.card,.pillar,.review,.loc-item,.bowie-feat').forEach((el,i)=>{el.style.opacity='0';el.style.transform='translateY(20px)';el.style.transition=`opacity 0.55s ${0.05*i}s cubic-bezier(.16,1,.3,1),transform 0.55s ${0.05*i}s cubic-bezier(.16,1,.3,1)`;io.observe(el);});
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}
+  });
+},{threshold:0.06,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.card,.pillar,.review,.loc-item,.bowie-feat').forEach((el,i)=>{
+  el.style.opacity='0';
+  el.style.transform='translateY(20px)';
+  el.style.transition=`opacity 0.55s ${0.05*i}s cubic-bezier(.16,1,.3,1),transform 0.55s ${0.05*i}s cubic-bezier(.16,1,.3,1)`;
+  io.observe(el);
+});
 
-// Inicializar carrito
+// Inicializar
 cartRender();
 </script>
 </body>

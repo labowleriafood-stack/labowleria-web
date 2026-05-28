@@ -1,0 +1,11 @@
+# La Bowlería — bowleria.co
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /*.json$
+
+# Sitemap
+Sitemap: https://bowleria.co/sitemap.xml
+
+# Crawl delay para bots agresivos
+Crawl-delay: 2

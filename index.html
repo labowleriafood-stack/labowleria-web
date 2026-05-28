@@ -48,71 +48,114 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Restaurant",
-  "name": "La Bowlería",
-  "description": "Bowls artesanales con proteínas de cocción lenta. Birria, lechón, pulled pork, pollo al curry. Domicilios en Bogotá.",
-  "url": "https://bowleria.co",
-  "telephone": "+573132776821",
-  "email": "labowleriafood@gmail.com",
-  "servesCuisine": ["Bowls", "Fusion", "Comida saludable", "Cocción lenta"],
-  "priceRange": "$$",
-  "currenciesAccepted": "COP",
-  "paymentAccepted": "Efectivo, Nequi, Daviplata, Llaves Bre-B",
-  "image": ["https://bowleria.co/img/hero.jpg", "https://bowleria.co/img/bowl_birria.jpg"],
-  "logo": "https://bowleria.co/img/logo.jpg",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Calle 127 B bis No. 52a-69, Local 124, Unidad Residencial Niza IX",
-    "addressLocality": "Bogotá",
-    "addressRegion": "Cundinamarca",
-    "postalCode": "111211",
-    "addressCountry": "CO"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": 4.7195,
-    "longitude": -74.0543
-  },
-  "hasMap": "https://maps.google.com/?q=Calle+127+B+bis+52a-69+Niza+IX+Bogota",
-  "openingHoursSpecification": [{
-    "@type": "OpeningHoursSpecification",
-    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
-    "opens": "11:15",
-    "closes": "19:00"
-  }],
-  "hasMenu": "https://bowleria.co/#menu",
-  "sameAs": [
-    "https://www.instagram.com/labowleriafood",
-    "https://wa.me/573132776821"
-  ],
-  "potentialAction": {
-    "@type": "OrderAction",
-    "target": {
-      "@type": "EntryPoint",
-      "urlTemplate": "https://wa.me/573132776821",
-      "inLanguage": "es",
-      "actionPlatform": ["http://schema.org/DesktopWebPlatform","http://schema.org/MobileWebPlatform"]
+  "@graph": [
+    {
+      "@type": ["Restaurant", "LocalBusiness", "FoodEstablishment"],
+      "@id": "https://bowleria.co/#restaurant",
+      "name": "La Bowlería",
+      "description": "Bowls artesanales con proteínas de cocción lenta en Bogotá. Birria de res, lechón, pulled pork y pollo al curry. Pan artesanal y salsas propias. Domicilios zona Niza.",
+      "url": "https://bowleria.co",
+      "telephone": "+573132776821",
+      "email": "labowleriafood@gmail.com",
+      "servesCuisine": ["Bowls artesanales", "Cocción lenta", "Fusion latinoamericana", "Comida saludable"],
+      "priceRange": "$$",
+      "currenciesAccepted": "COP",
+      "paymentAccepted": "Efectivo, Nequi, Daviplata, Llaves Bre-B",
+      "image": [
+        "https://bowleria.co/img/hero.webp",
+        "https://bowleria.co/img/bowl_birria.webp",
+        "https://bowleria.co/img/bowl_lechon.webp"
+      ],
+      "logo": "https://bowleria.co/img/logo.jpg",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Calle 127 B bis No. 52a-69, Local 124, Unidad Residencial Niza IX",
+        "addressLocality": "Bogotá",
+        "addressRegion": "Cundinamarca",
+        "postalCode": "111211",
+        "addressCountry": "CO"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 4.7195,
+        "longitude": -74.0543
+      },
+      "hasMap": "https://maps.google.com/?q=Calle+127+B+bis+52a-69+Niza+IX+Bogota",
+      "openingHoursSpecification": [{
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+        "opens": "11:15",
+        "closes": "19:00"
+      }],
+      "menu": "https://bowleria.co/#menu",
+      "hasMenu": {
+        "@type": "Menu",
+        "name": "Menú La Bowlería",
+        "hasMenuSection": [
+          {
+            "@type": "MenuSection",
+            "name": "Bowls",
+            "hasMenuItem": [
+              {"@type":"MenuItem","name":"Bowl de Birria","description":"Res desmechada en cocción lenta en salsa de chiles, frijoles negros, arroz y maduro frito","offers":{"@type":"Offer","price":"27000","priceCurrency":"COP"}},
+              {"@type":"MenuItem","name":"Bowl de Lechón","description":"Cerdo en cocción lenta con alverjas amarillas, arroz, maduro frito","offers":{"@type":"Offer","price":"22900","priceCurrency":"COP"}},
+              {"@type":"MenuItem","name":"Bowl Pollo al Curry","description":"Pollo en curry de la casa, arroz, brócoli en salsa de tamarindo","offers":{"@type":"Offer","price":"19800","priceCurrency":"COP"}},
+              {"@type":"MenuItem","name":"Bowl Pulled Pork","description":"Cerdo desmechado en salsa BBQ, lentejas, arroz, papa frita","offers":{"@type":"Offer","price":"19800","priceCurrency":"COP"}},
+              {"@type":"MenuItem","name":"Bowl Arroz Oriental","description":"Arroz salteado con proteínas y vegetales orientales","offers":{"@type":"Offer","price":"22000","priceCurrency":"COP"}}
+            ]
+          },
+          {
+            "@type": "MenuSection",
+            "name": "Sándwiches",
+            "hasMenuItem": [
+              {"@type":"MenuItem","name":"Sándwich de Birria","description":"Pan artesanal con birria, mayobirria, queso y caldo para dipear","offers":{"@type":"Offer","price":"28000","priceCurrency":"COP"}},
+              {"@type":"MenuItem","name":"Birriamen","description":"Ramen en caldo de birria con carne desmechada y queso","offers":{"@type":"Offer","price":"25000","priceCurrency":"COP"}}
+            ]
+          }
+        ]
+      },
+      "sameAs": [
+        "https://www.instagram.com/labowleriafood",
+        "https://wa.me/573132776821"
+      ],
+      "potentialAction": {
+        "@type": "OrderAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://wa.me/573132776821",
+          "actionPlatform": ["http://schema.org/DesktopWebPlatform","http://schema.org/MobileWebPlatform"]
+        }
+      }
     },
-    "deliveryMethod": ["http://purl.org/goodrelations/v1#DeliveryModeDirectDownload"]
-  }
+    {
+      "@type": "WebSite",
+      "@id": "https://bowleria.co/#website",
+      "url": "https://bowleria.co",
+      "name": "La Bowlería",
+      "description": "Bowls artesanales con proteínas de cocción lenta en Bogotá",
+      "inLanguage": "es-CO",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://bowleria.co/#menu",
+        "query-input": "required name=search_term_string"
+      }
+    }
+  ]
 }
 </script>
 
-<!-- ── GOOGLE ANALYTICS GA4 ──────────────────────────────── -->
-<!-- INSTRUCCIÓN PARA ACTIVAR:
-  1. Ve a analytics.google.com → crear cuenta → crear propiedad "La Bowlería"
-  2. Elige "Web" → URL: bowleria.co
-  3. Copia el Measurement ID (formato G-XXXXXXXXXX)
-  4. Reemplaza G-XXXXXXXXXX abajo por tu ID real
-  5. Descomenta las 3 líneas quitando los comentarios -->
-<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<!-- ── GOOGLE ANALYTICS GA4 ─────────────────────────────── -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8L7K67BSF1"></script>
 <script>
 window.dataLayer=window.dataLayer||[];
 function gtag(){dataLayer.push(arguments);}
 gtag('js',new Date());
-gtag('config','G-XXXXXXXXXX',{page_title:'La Bowlería',send_page_view:true});
+gtag('config','G-8L7K67BSF1',{
+  page_title:'La Bowlería',
+  page_location:window.location.href,
+  send_page_view:true
+});
 window._gtag=gtag;
-</script> -->
+</script>
 
 <!-- ── FUENTES ───────────────────────────────────────────── -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -380,7 +423,26 @@ nav.solid{background:rgba(10,9,8,.97)}
 }
 
 /* ── MENÚ SECCIÓN ───────────────────────────────────── */
-.menu-sec{padding:7rem 6rem}
+.menu-sec{padding:7rem 6rem;background:var(--c);}
+.menu-sec .eyebrow{color:var(--o)}
+.menu-sec .sec-title{color:var(--k)}
+.menu-sec .mcat{color:var(--o)}
+.menu-sec .mcat::after{background:rgba(212,83,10,.25)}
+.menu-sec .fb{border-color:rgba(10,9,8,.15);color:#5a4a40}
+.menu-sec .fb:hover{border-color:var(--o);color:var(--o)}
+.menu-sec .fb.on{background:var(--o);border-color:var(--o);color:var(--k)}
+.menu-sec .savings{background:rgba(212,83,10,.08);border-color:rgba(212,83,10,.2)}
+.menu-sec .savings-txt strong{color:var(--k)}
+.menu-sec .savings-txt span{color:#5a4a40}
+.menu-sec .mgrid{background:rgba(10,9,8,.06)}
+.menu-sec .mlist-grid{background:rgba(10,9,8,.06)}
+.menu-sec .mlist-col{background:var(--c)}
+.menu-sec .mlist-title{color:var(--k)}
+.menu-sec .mitem{border-bottom-color:rgba(10,9,8,.08)}
+.menu-sec .mitem-n{color:#1a1210}
+.menu-sec .mitem-add{color:var(--o)}
+.menu-sec .mitem-p{color:var(--o)}
+.menu-sec .mitem:hover{background:rgba(212,83,10,.06);padding-left:1rem}
 .menu-head{
   display:flex;align-items:flex-end;justify-content:space-between;
   margin-bottom:3rem;flex-wrap:wrap;gap:2rem;
@@ -1071,6 +1133,27 @@ footer{
   font-size:.55rem;
 }
 
+/* ── PLACEHOLDER FOTO ────────────────────────────────── */
+.card-no-foto{
+  width:100%;aspect-ratio:1/1;
+  background:linear-gradient(145deg,#1a1512 0%,#0d0b0a 100%);
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:.7rem;
+  border-bottom:1px solid rgba(212,83,10,.12);
+  position:relative;overflow:hidden;
+}
+.card-no-foto::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 40%,rgba(212,83,10,.08),transparent 70%);
+}
+.card-no-foto-icon{font-size:2.5rem;opacity:.5;position:relative;}
+.card-no-foto-txt{
+  font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--g);font-weight:300;text-align:center;line-height:1.6;
+  position:relative;padding:0 1rem;
+}
+.card-no-foto-txt strong{display:block;color:var(--cd);font-weight:400;margin-bottom:.1rem;}
+
 /* ── KEYFRAMES ───────────────────────────────────────── */
 @keyframes fadeUp{
   from{opacity:0;transform:translateY(24px)}
@@ -1097,6 +1180,7 @@ footer{
   .about-img{height:55vw}
   .about-txt,.bowie-sec,.order-sec{padding:3rem 1.5rem}
   .loc-sec{padding:4rem 1.5rem}
+  .reviews-sec>div{grid-template-columns:1fr!important}
   .reviews-grid{grid-template-columns:1fr}
   .foot-grid{grid-template-columns:1fr 1fr;gap:2rem}
   .foot-bottom{flex-direction:column;text-align:center}
@@ -1134,8 +1218,7 @@ footer{
     <li><a href="#menu">Menú</a></li>
     <li><a href="#nosotros">Nosotros</a></li>
     <li><a href="#bowie">Bowie</a></li>
-    <li><a href="#pedir">Pedir</a></li>
-    <li><a href="#ubicacion">Ubicación</a></li>
+        <li><a href="#ubicacion">Ubicación</a></li>
   </ul>
   <div class="np" id="navRight">
     <span class="np-save">Atención personalizada con Bowie</span>
@@ -1170,13 +1253,13 @@ footer{
       </a>
     </div>
     <div class="hero-stats">
-      <div class="stat"><strong>+500</strong><span>Bowls / semana</span></div>
-      <div class="stat"><strong>100%</strong><span>Artesanal</span></div>
+      <div class="stat"><strong>4+</strong><span>Proteínas propias</span></div>
+      <div class="stat"><strong>100%</strong><span>Cocción artesanal</span></div>
       <div class="stat"><strong>Fuego</strong><span>Cocción lenta</span></div>
     </div>
   </div>
   <div class="hero-r">
-    <img src="img/hero.jpg" alt="Bowl de Birria La Bowlería">
+    <img src="img/hero.webp" alt="Bowl de Birria La Bowlería">
   </div>
 </section>
 
@@ -1225,7 +1308,7 @@ footer{
   <div class="mgrid mgrid2" data-s="entradas">
     <div class="card" onclick="openM('Birriamen Mini','Ramen en caldo de birria con queso. Versión pequeña, perfecta para acompañar.','$15.000')">
       <span class="card-badge">Entrada</span>
-      <div class="card-img-wrap"><img src="img/IMG_1812.jpg" alt="Birriamen Mini" loading="lazy"></div>
+      <div class="card-img-wrap"><img src="img/IMG_1812.webp" alt="Birriamen Mini" loading="lazy"></div>
       <div class="card-price-tag"><span class="card-name-sm">Birriamen Mini</span><span class="card-price-sm">$15.000</span></div>
       <div class="card-info">
         <div class="card-name">Birriamen Mini</div>
@@ -1236,7 +1319,7 @@ footer{
     </div>
     <div class="card" onclick="openM('Papas de la casa','Cubos de papa frita con queso fundido y proteína a elegir: Pulled Pork / Curry desde $15.000 · Lechón $17.500 · Birria $19.500','Desde $15.000',15000)">
       <span class="card-badge">Entrada</span>
-      <div class="card-img-wrap"><img src="img/IMG_1730.jpg" alt="Papas de la casa" loading="lazy"></div>
+      <div class="card-img-wrap"><img src="img/IMG_1730.webp" alt="Papas de la casa" loading="lazy"></div>
       <div class="card-price-tag"><span class="card-name-sm">Papas de la casa</span><span class="card-price-sm">Desde $15.000</span></div>
       <div class="card-info">
         <div class="card-name">Papas de la casa</div>
@@ -1252,7 +1335,7 @@ footer{
   <div class="mgrid" data-s="bowls">
     <div class="card" onclick="openM('Bowl de Birria','Carne de res desmechada en cocción lenta en salsa de chiles · frijoles negros · arroz · maduro frito','26oz $27.000 · 32oz $36.000',27000)">
       <span class="card-badge">Estrella</span>
-      <div class="card-img-wrap"><img src="img/bowl_birria.jpg" alt="Bowl de Birria" loading="lazy"></div>
+      <div class="card-img-wrap"><img src="img/bowl_birria.webp" alt="Bowl de Birria" loading="lazy"></div>
       <div class="card-price-tag"><span class="card-name-sm">Bowl de Birria</span><span class="card-price-sm">Desde $27.000</span></div>
       <div class="card-info">
         <div class="card-name">Bowl de Birria</div>
@@ -1262,7 +1345,7 @@ footer{
       </div>
     </div>
     <div class="card" onclick="openM('Bowl de Lechón','Cerdo en cocción lenta con alverjas amarillas · arroz · maduro frito · ensaladilla de la casa','26oz $22.900 · 32oz $30.400',22900)">
-      <div class="card-img-wrap"><img src="img/bowl_lechon.jpg" alt="Bowl de Lechón" loading="lazy"></div>
+      <div class="card-img-wrap"><img src="img/bowl_lechon.webp" alt="Bowl de Lechón" loading="lazy"></div>
       <div class="card-price-tag"><span class="card-name-sm">Bowl de Lechón</span><span class="card-price-sm">Desde $22.900</span></div>
       <div class="card-info">
         <div class="card-name">Bowl de Lechón</div>
@@ -1272,7 +1355,7 @@ footer{
       </div>
     </div>
     <div class="card" onclick="openM('Bowl Pollo al Curry','Pollo en curry de la casa · arroz · brócoli en salsa de tamarindo · cubos de papa frita','26oz $19.800 · 32oz $27.500',19800)">
-      <div class="card-img-wrap"><img src="img/bowl_curry.jpg" alt="Bowl Pollo al Curry" loading="lazy"></div>
+      <div class="card-img-wrap"><img src="img/bowl_curry.webp" alt="Bowl Pollo al Curry" loading="lazy"></div>
       <div class="card-price-tag"><span class="card-name-sm">Bowl Pollo al Curry</span><span class="card-price-sm">Desde $19.800</span></div>
       <div class="card-info">
         <div class="card-name">Bowl Pollo al Curry</div>
@@ -1282,7 +1365,7 @@ footer{
       </div>
     </div>
     <div class="card" onclick="openM('Bowl Pulled Pork','Cerdo desmechado en salsa BBQ · lentejas · arroz · cubos de papa frita','26oz $19.800 · 32oz $27.500',19800)">
-      <div class="card-img-wrap"><img src="img/bowl_pp.jpg" alt="Bowl Pulled Pork" loading="lazy"></div>
+      <div class="card-img-wrap"><img src="img/bowl_pp.webp" alt="Bowl Pulled Pork" loading="lazy"></div>
       <div class="card-price-tag"><span class="card-name-sm">Bowl Pulled Pork</span><span class="card-price-sm">Desde $19.800</span></div>
       <div class="card-info">
         <div class="card-name">Bowl Pulled Pork</div>
@@ -1292,7 +1375,7 @@ footer{
       </div>
     </div>
     <div class="card" onclick="openM('Bowl Arroz Oriental','Arroz salteado con res · pollo · cerdo · vegetales y raíces chinas · papas fritas en cubos','26oz $22.000 · 32oz $29.500',22000)">
-      <div class="card-img-wrap"><img src="img/bowl_oriental.jpg" alt="Bowl Arroz Oriental" loading="lazy"></div>
+      <div class="card-img-wrap"><img src="img/bowl_oriental.webp" alt="Bowl Arroz Oriental" loading="lazy"></div>
       <div class="card-price-tag"><span class="card-name-sm">Bowl Arroz Oriental</span><span class="card-price-sm">Desde $22.000</span></div>
       <div class="card-info">
         <div class="card-name">Bowl Arroz Oriental</div>
@@ -1321,7 +1404,7 @@ footer{
   <div class="mgrid mgrid3" data-s="sandwiches">
     <div class="card" onclick="openM('Sándwich de Birria','Pan de la casa · birria · mayobirria · queso · papas chip · caldo de birria para dipear. ¡El más especial del menú!','$28.000',28000)">
       <span class="card-badge new">Especial</span>
-      <div class="card-img-wrap"><img src="img/IMG_1816.jpg" alt="Sándwich de Birria" loading="lazy"></div>
+      <div class="card-img-wrap"><img src="img/IMG_1816.webp" alt="Sándwich de Birria" loading="lazy"></div>
       <div class="card-price-tag"><span class="card-name-sm">Sándwich Birria</span><span class="card-price-sm">$28.000</span></div>
       <div class="card-info">
         <div class="card-name">Sándwich de Birria</div>
@@ -1331,7 +1414,7 @@ footer{
       </div>
     </div>
     <div class="card" onclick="openM('Sándwich de Lechón','Pan de la casa · lechón · alverja amarilla · mayo lechón · queso · papas chip','$25.000',25000)">
-      <div class="card-img-wrap"><img src="img/IMG_1777.jpg" alt="Sándwich de Lechón" loading="lazy"></div>
+      <div class="card-img-wrap"><img src="img/IMG_1777.webp" alt="Sándwich de Lechón" loading="lazy"></div>
       <div class="card-price-tag"><span class="card-name-sm">Sándwich Lechón</span><span class="card-price-sm">$25.000</span></div>
       <div class="card-info">
         <div class="card-name">Sándwich de Lechón</div>
@@ -1341,8 +1424,7 @@ footer{
       </div>
     </div>
     <div class="card" onclick="openM('Sándwich Pollo al Curry','Pan de la casa · pollo al curry · salsa broco-tamarindo · queso · papas chip','$25.000',25000)">
-      <span class="card-badge pronto">📸 Imagen próximamente disponible</span>
-      <div class="card-img-wrap"><img src="img/IMG_1733.jpg" alt="Sándwich Pollo al Curry" loading="lazy"></div>
+      <div class="card-img-wrap"><div class="card-no-foto"><div class="card-no-foto-icon">🍗</div><div class="card-no-foto-txt"><strong>Foto próximamente</strong>disponible</div></div></div>
       <div class="card-price-tag"><span class="card-name-sm">Sándwich Curry</span><span class="card-price-sm">$25.000</span></div>
       <div class="card-info">
         <div class="card-name">Sándwich Pollo al Curry</div>
@@ -1352,8 +1434,7 @@ footer{
       </div>
     </div>
     <div class="card" onclick="openM('Sándwich Pulled Pork','Pan de la casa · pulled pork · salsa BBQ · queso · papas chip','$25.000',25000)">
-      <span class="card-badge pronto">📸 Imagen próximamente disponible</span>
-      <div class="card-img-wrap"><img src="img/IMG_1741.jpg" alt="Sándwich Pulled Pork" loading="lazy"></div>
+      <div class="card-img-wrap"><div class="card-no-foto"><div class="card-no-foto-icon">🥩</div><div class="card-no-foto-txt"><strong>Foto próximamente</strong>disponible</div></div></div>
       <div class="card-price-tag"><span class="card-name-sm">Sándwich Pulled Pork</span><span class="card-price-sm">$25.000</span></div>
       <div class="card-info">
         <div class="card-name">Sándwich Pulled Pork</div>
@@ -1363,7 +1444,7 @@ footer{
       </div>
     </div>
     <div class="card" onclick="openM('Mini Sándwiches x4','4 mini sándwiches en pan de la casa: Birria · Pulled Pork · Lechón · Pollo al Curry. Perfecto para compartir.','$25.000',25000)">
-      <div class="card-img-wrap"><img src="img/IMG_1687.jpg" alt="Mini Sándwiches" loading="lazy"></div>
+      <div class="card-img-wrap"><img src="img/IMG_1687.webp" alt="Mini Sándwiches" loading="lazy"></div>
       <div class="card-price-tag"><span class="card-name-sm">Mini Sándwiches x4</span><span class="card-price-sm">$25.000</span></div>
       <div class="card-info">
         <div class="card-name">Mini Sándwiches x4</div>
@@ -1379,7 +1460,7 @@ footer{
   <div class="mgrid mgrid2" data-s="sopas">
     <div class="card" onclick="openM('Birriamen','Ramen en caldo de birria con carne desmechada · queso · totopos. La versión completa del Birriamen mini.','$25.000',25000)">
       <span class="card-badge new">Nuevo</span>
-      <div class="card-img-wrap"><img src="img/IMG_1752.jpg" alt="Birriamen" loading="lazy"></div>
+      <div class="card-img-wrap"><img src="img/IMG_1752.webp" alt="Birriamen" loading="lazy"></div>
       <div class="card-price-tag"><span class="card-name-sm">Birriamen</span><span class="card-price-sm">$25.000</span></div>
       <div class="card-info">
         <div class="card-name">Birriamen</div>
@@ -1457,19 +1538,19 @@ footer{
 <!-- ── NOSOTROS ──────────────────────────────────────── -->
 <section class="about" id="nosotros">
   <div class="about-img">
-    <img src="img/mkt_4.jpg" alt="La Bowlería proceso artesanal">
+    <img src="img/mkt_4.webp" alt="La Bowlería proceso artesanal">
   </div>
   <div class="about-txt">
     <p class="eyebrow">Nuestra historia</p>
     <h2 class="sec-title" style="color:var(--c);margin-bottom:1.5rem">El tiempo<br>que sabe<br>a algo</h2>
     <blockquote class="about-quote">"La buena comida no se puede apurar. El fuego lento lo cambia todo."</blockquote>
-    <p class="about-p">En La Bowlería cada proteína pasa por fuego lento hasta que decide sola que ya está lista. No hay cronómetro que valga — hay un punto exacto en que la carne se deshace sola, en que los sabores se fusionan y en que el resultado no se parece a nada que salga de una cocina rápida.</p>
-    <p class="about-p">Nuestro pan lo hacemos nosotros. Nuestras salsas llevan la firma de quien las hizo. Cada bowl es un acto de intención, no de producción.</p>
+    <p class="about-p">Mientras la mayoría de restaurantes busca velocidad, nosotros buscamos el punto exacto. La birria de res lleva horas en cocción lenta con chiles tostados hasta que la carne se deshace sola. El lechón se cocina en su propia grasa. El pulled pork nunca apresura. Cada proteína decide cuando está lista — no el reloj.</p>
+    <p class="about-p">El pan lo hacemos nosotros. Las salsas llevan la firma de quien las hizo. No hay atajos en nuestra cocina porque el resultado se nota — y nuestros clientes lo saben.</p>
     <div class="pillars">
-      <div class="pillar"><strong>Cocción lenta</strong><span>Fuego lento artesanal</span></div>
-      <div class="pillar"><strong>Pan propio</strong><span>Artesanal, hecho por nosotros</span></div>
-      <div class="pillar"><strong>Salsas de la casa</strong><span>Con firma propia</span></div>
-      <div class="pillar"><strong>Sin conservantes</strong><span>Ingredientes frescos</span></div>
+      <div class="pillar"><strong>Fuego lento</strong><span>Horas de cocción — nunca minutos</span></div>
+      <div class="pillar"><strong>Pan de la casa</strong><span>Hecho por nosotros, cada día</span></div>
+      <div class="pillar"><strong>Salsas propias</strong><span>Recetas exclusivas La Bowlería</span></div>
+      <div class="pillar"><strong>Sin conservantes</strong><span>Ingredientes frescos y de temporada</span></div>
     </div>
   </div>
 </section>
@@ -1508,83 +1589,87 @@ footer{
   </div>
 </section>
 
-<!-- ── RESEÑAS ────────────────────────────────────────── -->
+<!-- ── RESEÑAS ──────────────────────────────────────────── -->
 <section class="reviews-sec sec-alt" id="resenas">
-  <p class="eyebrow">Lo que dicen nuestros clientes</p>
-  <h2 class="sec-title">Cada bowl<br>cuenta</h2>
-  <div class="reviews-grid">
-    <div class="review">
-      <div class="review-stars">
-        <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;">
+    <div>
+      <p class="eyebrow">Lo que dicen nuestros clientes</p>
+      <h2 class="sec-title">La prueba<br>está en el<br>sabor</h2>
+      <p style="font-size:.95rem;font-weight:300;line-height:1.85;color:var(--cd);margin:1.5rem 0 2rem;">Cada bowl que sale de nuestra cocina lleva el mismo proceso de siempre — proteínas en fuego lento, pan artesanal, salsas propias. El resultado habla solo. Si ya probaste La Bowlería, cuéntaselo al mundo.</p>
+      <div style="display:flex;flex-direction:column;gap:.8rem;">
+        <a href="https://g.page/r/XXXXXXXX/review" target="_blank" id="linkGoogleReview"
+           style="display:flex;align-items:center;gap:.8rem;padding:1rem 1.2rem;background:rgba(242,228,200,.04);border:1px solid rgba(242,228,200,.1);transition:all .3s;text-decoration:none;color:var(--c);"
+           onmouseover="this.style.borderColor='rgba(212,83,10,.4)'" onmouseout="this.style.borderColor='rgba(242,228,200,.1)'">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z" fill="#4285F4"/></svg>
+          <div><strong style="font-size:.85rem;display:block">Dejar reseña en Google</strong><small style="font-size:.72rem;color:var(--g)">Nos ayuda a llegar a más personas</small></div>
+          <svg style="margin-left:auto;opacity:.4" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="https://instagram.com/labowleriafood" target="_blank"
+           style="display:flex;align-items:center;gap:.8rem;padding:1rem 1.2rem;background:rgba(242,228,200,.04);border:1px solid rgba(242,228,200,.1);transition:all .3s;text-decoration:none;color:var(--c);"
+           onmouseover="this.style.borderColor='rgba(212,83,10,.4)'" onmouseout="this.style.borderColor='rgba(242,228,200,.1)'">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          <div><strong style="font-size:.85rem;display:block">Etiquétanos en Instagram</strong><small style="font-size:.72rem;color:var(--g)">@labowleriafood — comparte tu bowl</small></div>
+          <svg style="margin-left:auto;opacity:.4" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
       </div>
-      <p class="review-text">"El Bowl de Birria es de otro nivel. La carne se deshace sola y el caldo es adictivo. Ya lo he pedido cinco veces este mes."</p>
-      <div class="review-author">Carolina M. — Niza</div>
-      <div class="review-platform">Google · 5 estrellas</div>
     </div>
-    <div class="review">
-      <div class="review-stars">
-        <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+    <div style="display:flex;flex-direction:column;gap:1.5px;background:rgba(242,228,200,.04);">
+      <!-- RESEÑA PLACEHOLDER — reemplazar con reseñas reales cuando las haya -->
+      <div class="review" style="opacity:.5">
+        <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="review-text">"Próximamente aquí aparecerán las reseñas de nuestros clientes."</p>
+        <div class="review-author">Tu nombre aquí</div>
+        <div class="review-platform">Google</div>
       </div>
-      <p class="review-text">"Bowie es increíble, el pedido llega en minutos y siempre perfecto. El pulled pork es lo mejor que he comido en Bogotá."</p>
-      <div class="review-author">Andrés R. — Cedritos</div>
-      <div class="review-platform">Google · 5 estrellas</div>
-    </div>
-    <div class="review">
-      <div class="review-stars">
-        <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+      <div style="background:var(--k);padding:2rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;text-align:center;min-height:180px;">
+        <div style="font-size:2.5rem;opacity:.2">⭐</div>
+        <p style="font-size:.78rem;color:var(--g);font-weight:300;line-height:1.7;">Sé el primero en dejar una reseña.<br>Tu opinión ayuda a otros a descubrir La Bowlería.</p>
+        <a href="https://g.page/r/XXXXXXXX/review" target="_blank" id="linkGoogleReview2"
+           style="display:inline-block;background:var(--o);color:var(--k);padding:.55rem 1.4rem;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;font-weight:500;text-decoration:none;transition:background .3s;"
+           onmouseover="this.style.background='#f07030'" onmouseout="this.style.background='var(--o)'">
+          Dejar reseña →
+        </a>
       </div>
-      <p class="review-text">"Pedí el Birriamen y fue un viaje. El caldo de birria con el ramen es una combinación que no sabía que necesitaba. Ya es mi plato favorito."</p>
-      <div class="review-author">Valentina G. — Santa Bárbara</div>
-      <div class="review-platform">Google · 5 estrellas</div>
     </div>
   </div>
 </section>
 
 <!-- ── PEDIR ──────────────────────────────────────────── -->
-<section class="order-sec" id="pedir">
+<section style="padding:5rem 6rem;background:var(--b);display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center" id="pedir">
   <div>
-    <p class="eyebrow">Haz tu pedido</p>
-    <h2 class="sec-title">Elige cómo<br>quieres pedir</h2>
-    <p class="order-desc">Agrega lo que quieras al carrito y confirma por WhatsApp con Bowie — atención real en segundos, sin formularios ni esperas.</p>
-    <div class="chnls">
-      <a href="https://wa.me/573132776821?text=Hola%2C+quiero+hacer+un+pedido+en+La+Bowler%C3%ADa" class="chnl chnl-wa" target="_blank" onclick="trackWA&&trackWA('seccion_pedir')">
+    <p class="eyebrow">¿Cómo pedir?</p>
+    <h2 class="sec-title">Simple y directo</h2>
+    <p style="font-size:.95rem;font-weight:300;line-height:1.85;color:var(--cd);margin:1.2rem 0 2rem;">Elige del menú, agrega al carrito y confirma. Bowie recibe tu pedido en segundos y te lo lleva a la puerta — o puedes recogerlo en el local sin costo de domicilio.</p>
+    <div style="display:flex;flex-direction:column;gap:.6rem;">
+      <a href="https://wa.me/573132776821" class="chnl chnl-wa" target="_blank">
         <div class="chnl-i">💬</div>
-        <div class="chnl-t"><strong>WhatsApp con Bowie</strong><small>Atención inmediata · lun–dom 11:15–7 p.m.</small></div>
+        <div class="chnl-t"><strong>Hablar con Bowie</strong><small>WhatsApp · lun–dom 11:15–7 p.m.</small></div>
       </a>
       <button class="chnl chnl-form" onclick="abrirCarrito()">
         <div class="chnl-i">🛒</div>
-        <div class="chnl-t"><strong>Ver mi carrito</strong><small>Agrega productos desde el menú y confirma aquí</small></div>
+        <div class="chnl-t"><strong>Ver mi carrito</strong><small>Agrega productos desde el menú</small></div>
       </button>
     </div>
-    <div class="info-box">
-      <strong>Zona gratuita:</strong> Niza IX y alrededores.<br>
-      <strong>Fuera de la zona:</strong> costo adicional de domicilio.<br>
-      <strong>Pagos:</strong> Efectivo · Nequi · Daviplata · Llaves Bre-B
-    </div>
   </div>
-  <div style="display:flex;flex-direction:column;gap:1.5rem;">
-    <div style="background:var(--s);border:1px solid rgba(242,228,200,.08);padding:2.5rem;position:relative;">
-      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--o),var(--ol),var(--o));"></div>
-      <h3 style="font-family:var(--f-title);font-size:2rem;color:var(--c);margin-bottom:1rem;">¿Cómo funciona?</h3>
-      <div style="display:flex;flex-direction:column;gap:1rem;">
-        <div style="display:flex;gap:1rem;align-items:flex-start;">
-          <div style="width:32px;height:32px;background:var(--o);color:var(--k);font-family:var(--f-title);font-size:1.1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">1</div>
-          <div><strong style="display:block;font-size:.88rem;color:var(--c);margin-bottom:.2rem;">Elige del menú</strong><span style="font-size:.8rem;color:var(--g);font-weight:300;">Haz clic en cualquier plato — se agrega directo al carrito.</span></div>
-        </div>
-        <div style="display:flex;gap:1rem;align-items:flex-start;">
-          <div style="width:32px;height:32px;background:var(--o);color:var(--k);font-family:var(--f-title);font-size:1.1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">2</div>
-          <div><strong style="display:block;font-size:.88rem;color:var(--c);margin-bottom:.2rem;">Revisa tu carrito</strong><span style="font-size:.8rem;color:var(--g);font-weight:300;">Ajusta cantidades, agrega más productos o elimina lo que no quieres.</span></div>
-        </div>
-        <div style="display:flex;gap:1rem;align-items:flex-start;">
-          <div style="width:32px;height:32px;background:var(--o);color:var(--k);font-family:var(--f-title);font-size:1.1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">3</div>
-          <div><strong style="display:block;font-size:.88rem;color:var(--c);margin-bottom:.2rem;">Confirma con Bowie</strong><span style="font-size:.8rem;color:var(--g);font-weight:300;">Tu pedido va directo a WhatsApp. Bowie lo confirma en segundos.</span></div>
-        </div>
+  <div style="background:rgba(242,228,200,.03);border:1px solid rgba(242,228,200,.07);padding:2rem;position:relative;">
+    <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--o),var(--ol),var(--o));"></div>
+    <div style="display:flex;flex-direction:column;gap:1.2rem;">
+      <div style="display:flex;gap:1rem;align-items:flex-start;">
+        <div style="width:30px;height:30px;background:var(--o);color:var(--k);font-family:var(--f-title);font-size:1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">1</div>
+        <div><strong style="display:block;font-size:.85rem;color:var(--c);margin-bottom:.15rem;">Elige del menú</strong><span style="font-size:.78rem;color:var(--g);font-weight:300;">Haz clic en cualquier plato para agregarlo al carrito.</span></div>
+      </div>
+      <div style="display:flex;gap:1rem;align-items:flex-start;">
+        <div style="width:30px;height:30px;background:var(--o);color:var(--k);font-family:var(--f-title);font-size:1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">2</div>
+        <div><strong style="display:block;font-size:.85rem;color:var(--c);margin-bottom:.15rem;">Confirma el pedido</strong><span style="font-size:.78rem;color:var(--g);font-weight:300;">Abre el carrito, revisa y confirma. Tu pedido va directo a Bowie.</span></div>
+      </div>
+      <div style="display:flex;gap:1rem;align-items:flex-start;">
+        <div style="width:30px;height:30px;background:var(--o);color:var(--k);font-family:var(--f-title);font-size:1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">3</div>
+        <div><strong style="display:block;font-size:.85rem;color:var(--c);margin-bottom:.15rem;">Domicilio o recogida</strong><span style="font-size:.78rem;color:var(--g);font-weight:300;">Zona Niza IX gratis. Recoge en el local sin costo de domicilio.</span></div>
       </div>
     </div>
-    <a href="#menu" class="btn-main" style="justify-content:center;text-decoration:none;">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
-      Ver el menú completo
-    </a>
+    <div style="margin-top:1.5rem;padding:1rem;background:rgba(212,83,10,.07);border-left:2px solid var(--o);font-size:.78rem;color:var(--g);line-height:1.7;">
+      <strong style="color:var(--c)">Pagos:</strong> Efectivo · Nequi · Daviplata · Llaves Bre-B
+    </div>
   </div>
 </section>
 
